@@ -96,7 +96,7 @@ const initializePassport = () => {
       const user = await userModel.findOne({ email: payload.user.email});
       
       if (!user) {
-        console.log("akiii")
+        console.log("por aqui")
         return done(null, false);
       }
       

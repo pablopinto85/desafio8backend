@@ -1,5 +1,5 @@
 const express = require("express");
-const { errorHandler } = require('./errorHandler');
+const { errorHandler } = require('./errorHandlerMiddleware.js');
 const mockingModule = require('./mockingModule');
 const path = require("path");
 const cartRouter = require("./routes/cartRouter");
@@ -31,20 +31,20 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server)
 global.io = io;
-const PORT = 8080
+const port = 8080
 
 app.get('/mockingproducts', (req, res) => {
   const mockProducts = mockingModule.generateMockProducts();
   res.json(mockProducts);
 });
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Servidor corriendo en el ${port}`);
 });
 
 //MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());// revisar si funciona
+app.use(cookieParser());
 app.use(errorHandler);
 
 io.on('connection', (socket) => {
@@ -54,11 +54,6 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
       console.log('Cliente desconectado');
     });
-});
-
-
-server.listen(PORT, ()=>{
-    console.log(`servidor corriendo en puerto ${PORT}`)
 });
 
 
