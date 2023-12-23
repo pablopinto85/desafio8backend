@@ -24,5 +24,5 @@ describe('errorHandlerMiddleware', () => {
            errorHandlerMiddleware(err, req, res, next);
         };
        
-        next(new Error('This is a known error'));
+        next(new Error('Esto es un error conocido'));
        });})
